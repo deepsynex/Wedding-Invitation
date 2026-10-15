@@ -1,0 +1,385 @@
+/* ==========================================================================
+   RSVP Suite: Screen 4 (Prompt Card) & Screen 5 (Interactive Form)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Screen 4: RSVP Prompt Card (Frames 00:15 - 00:20)
+   -------------------------------------------------------------------------- */
+
+.rsvp-prompt-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--color-bg);
+}
+
+.rsvp-prompt-card {
+  padding: 5rem 1.5rem 3rem 1.5rem;
+  max-width: 680px;
+  width: 100%;
+  margin: auto auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.rsvp-prompt-title {
+  font-family: var(--font-script);
+  font-size: clamp(3.0rem, 8vw, 5.2rem);
+  color: var(--color-text-primary);
+  margin-bottom: 0.75rem;
+  line-height: 1.1;
+  font-weight: 500;
+  -webkit-text-stroke: 0.4px var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.rsvp-prompt-subtitle {
+  font-family: var(--font-script);
+  font-size: clamp(1.15rem, 4.2vw, 3.0rem);
+  color: var(--color-text-primary);
+  margin-bottom: 1.75rem;
+  line-height: 1.2;
+  font-weight: 500;
+  -webkit-text-stroke: 0.35px var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.rsvp-prompt-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: #111111;
+  line-height: 1.85;
+  font-weight: 500;
+  max-width: 480px;
+  margin-bottom: 2.25rem;
+}
+
+.rsvp-prompt-deadline {
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-text-primary);
+  margin-bottom: 2.5rem;
+  text-transform: uppercase;
+}
+
+.rsvp-prompt-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+
+/* --------------------------------------------------------------------------
+   Screen 5: Interactive RSVP Form (Frames 00:21 - 00:36)
+   -------------------------------------------------------------------------- */
+
+.rsvp-form-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2.5rem 0 0 0;
+  background-color: var(--color-bg);
+}
+
+.rsvp-form-container {
+  padding: 1.5rem 1.5rem 4rem 1.5rem;
+  max-width: 580px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.rsvp-form-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rsvp-form-emblem {
+  width: 72px;
+  height: auto;
+  margin-bottom: 1.25rem;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.06));
+}
+
+.rsvp-form-title {
+  font-family: var(--font-script);
+  font-size: clamp(1.35rem, 5.0vw, 3.4rem);
+  color: var(--color-text-primary);
+  margin-bottom: 0.75rem;
+  line-height: 1.15;
+  font-weight: 500;
+  -webkit-text-stroke: 0.35px var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.rsvp-form-subtext {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: #111111;
+  line-height: 1.75;
+  font-weight: 500;
+  max-width: 480px;
+  margin-bottom: 1.25rem;
+}
+
+.rsvp-form-deadline-badge {
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+}
+
+/* Form Groups & Inputs */
+.form-group {
+  margin-bottom: 2rem;
+}
+
+.form-label {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.08rem;
+  color: var(--color-text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.form-input {
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid var(--color-input-border);
+  border-radius: 3px;
+  padding: 0.95rem 1.2rem;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--color-text-primary);
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-input:focus {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 3px rgba(179, 154, 123, 0.2);
+}
+
+.form-input::placeholder {
+  color: var(--color-text-subtle);
+  font-style: italic;
+}
+
+/* Choice Cards (Tile Selection matching Video 00:23 / 00:30) */
+.radio-cards-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.radio-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 1.1rem 1.4rem;
+  background-color: #ebe5dc;
+  border: 1.5px solid transparent;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.radio-card:hover {
+  background-color: #e4ddd3;
+}
+
+.radio-card input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.radio-indicator {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-text-secondary);
+  margin-right: 1.1rem;
+  flex-shrink: 0;
+  position: relative;
+  transition: border-color var(--transition-fast);
+}
+
+.radio-card input[type="radio"]:checked ~ .radio-indicator {
+  border-color: var(--color-text-primary);
+}
+
+.radio-card input[type="radio"]:checked ~ .radio-indicator::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--color-text-primary);
+}
+
+.radio-label {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--color-text-primary);
+}
+
+.radio-card.selected {
+  background-color: #ded7cb;
+  border-color: rgba(179, 154, 123, 0.7);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Dynamic Guest Name Field */
+.guest-name-field {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--transition-normal), opacity var(--transition-normal);
+  opacity: 0;
+}
+
+.guest-name-field.visible {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.guest-name-field-inner {
+  overflow: hidden;
+  padding-top: 0.75rem;
+}
+
+/* Solid Black Submit RSVP Button */
+.rsvp-submit-btn {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 1.15rem;
+  font-size: 0.84rem;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  background-color: #111111;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.rsvp-submit-btn:hover {
+  background-color: #242424;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+.rsvp-submit-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Canva note below button */
+.rsvp-canva-note {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  color: #787067;
+  text-align: center;
+  margin-top: 1.25rem;
+  line-height: 1.6;
+}
+
+.rsvp-canva-note a {
+  color: #55504a;
+  text-decoration: underline;
+}
+
+.rsvp-canva-note a:hover {
+  color: #111111;
+}
+
+.rsvp-form-back-wrap {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* --------------------------------------------------------------------------
+   Confirmation / Thank You State
+   -------------------------------------------------------------------------- */
+
+.rsvp-confirmation-card {
+  display: none;
+  text-align: center;
+  padding: 2.5rem 1rem;
+  animation: screenFadeIn 0.6s ease forwards;
+}
+
+.rsvp-confirmation-card.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.confirmation-check-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-gold);
+  color: var(--color-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  background-color: var(--color-surface-warm);
+}
+
+.confirmation-title {
+  font-family: var(--font-script);
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  color: var(--color-text-primary);
+  margin-bottom: 1rem;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.confirmation-message {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-body-serif);
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+  max-width: 440px;
+  margin-bottom: 2rem;
+}
+
+.confirmation-details-summary {
+  background: var(--color-surface-subtle);
+  border: 1px solid var(--color-border-warm);
+  border-radius: 4px;
+  padding: 1.4rem 1.8rem;
+  margin-bottom: 2.5rem;
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-text-primary);
+  text-align: left;
+  width: 100%;
+  max-width: 420px;
+}

@@ -1,0 +1,479 @@
+/* ==========================================================================
+   Envelope Styles: Screen 1 (Closed Gate) & Screen 2 (Opened Hero Assembly)
+   Matched 100% to User Reference Screenshots & Video
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Screen 1: The Closed Envelope Gate (Home Page)
+   -------------------------------------------------------------------------- */
+
+.envelope-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem 2.5rem 1.5rem;
+  text-align: center;
+  position: relative;
+  background-color: var(--color-bg);
+}
+
+.envelope-header {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.envelope-subtitle {
+  font-family: var(--font-serif);
+  font-size: clamp(0.72rem, 1.8vw, 1.05rem);
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  color: var(--color-text-primary);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.envelope-title {
+  font-family: var(--font-script);
+  font-size: clamp(2.5rem, 7.5vw, 5.2rem);
+  color: var(--color-text-primary);
+  line-height: 1.15;
+  font-weight: 500;
+  -webkit-text-stroke: 0.35px var(--color-text-primary);
+  white-space: nowrap;
+}
+
+/* 3D Envelope Stage */
+.envelope-stage {
+  perspective: 1200px;
+  width: var(--envelope-width);
+  max-width: 540px;
+  margin: 0 auto;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  z-index: 2;
+}
+
+.closed-envelope-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.25 / 1;
+  transform-style: preserve-3d;
+  transition: transform var(--transition-normal);
+  filter: drop-shadow(0 20px 45px rgba(35, 25, 15, 0.16));
+}
+
+.envelope-stage:hover .closed-envelope-wrapper {
+  transform: translateY(-5px) scale(1.008);
+}
+
+.closed-envelope-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Cameo Wax Seal Stamp with Interlocking Serif MR */
+.wax-seal-target {
+  position: absolute;
+  top: 58.5%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 74px;
+  height: 90px;
+  z-index: 20;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-bounce), filter var(--transition-fast);
+}
+
+.wax-seal-target:hover {
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
+.wax-seal-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 3px 8px rgba(80, 60, 40, 0.2));
+}
+
+/* Interlocking Serif Monogram in Center of Cameo */
+.wax-seal-monogram {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: #bba185;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  pointer-events: none;
+  text-shadow: 0 0.5px 1px rgba(255, 255, 255, 0.8);
+}
+
+.wax-seal-monogram-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 34px;
+  height: 42px;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seal-monogram-m {
+  position: absolute;
+  top: 5px;
+  left: 3px;
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: #bba185;
+  line-height: 1;
+  text-shadow: 0 0.5px 0.5px rgba(255, 255, 255, 0.7);
+}
+
+.seal-monogram-r {
+  position: absolute;
+  bottom: 5px;
+  right: 3px;
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: #bba185;
+  line-height: 1;
+  text-shadow: 0 0.5px 0.5px rgba(255, 255, 255, 0.7);
+}
+
+.wax-seal-pulse {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(184, 155, 120, 0.6);
+  animation: sealPulse 2.4s infinite ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes sealPulse {
+  0%, 100% {
+    transform: scale(0.96);
+    opacity: 0.35;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.85;
+  }
+}
+
+/* Horizontal Calla Lily Stem across bottom front of envelope */
+.envelope-lily-stem {
+  position: absolute;
+  bottom: -16px;
+  left: 2%;
+  width: 96%;
+  pointer-events: none;
+  z-index: 15;
+}
+
+.lily-stem-img {
+  content: url('../assets/images (1)/lily-horizontal.webp') !important;
+  width: 100%;
+  height: auto;
+  display: block;
+  transform: none !important;
+  filter: drop-shadow(0 8px 16px rgba(25, 20, 15, 0.22));
+}
+
+/* Bottom Action Prompt */
+.envelope-prompt {
+  margin-top: 2.4rem;
+  display: inline-block;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  position: relative;
+  z-index: 2;
+  transition: transform var(--transition-fast), color var(--transition-fast);
+}
+
+.envelope-prompt:hover {
+  transform: translateY(-2px);
+}
+
+.envelope-prompt-text {
+  font-family: var(--font-serif);
+  font-size: 0.96rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+}
+
+.envelope-prompt-icon {
+  display: none !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   Screen 2: Opened Envelope Hero Assembly (Full-Bleed Floral Backdrop)
+   Matched 100% to sec1_hero.png
+   -------------------------------------------------------------------------- */
+
+.hero-banner {
+  width: 100%;
+  position: relative;
+  min-height: clamp(620px, 88vh, 760px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #f7f1e7;
+  border-bottom: 1px solid var(--color-border-warm);
+}
+
+.hero-floral-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 36%;
+  display: block;
+}
+
+/* Centered Assembly of Envelope Layers */
+.opened-envelope-assembly {
+  position: relative;
+  z-index: 2;
+  width: min(490px, 92vw);
+  height: 630px;
+  margin: 1.5rem auto 1rem auto;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  filter: drop-shadow(0 25px 50px rgba(25, 20, 15, 0.22));
+}
+
+.env-layer {
+  position: absolute;
+  width: 100%;
+}
+
+/* Layer 1: Back + Open Lace Flap */
+.env-layer-back {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.env-back-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+  display: block;
+}
+
+/* Card Slot: clips bottom so nothing spills below envelope, but extends top to prevent upside cropping */
+.env-card-slot {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: -140px;
+  width: 100%;
+  height: calc(100% + 140px);
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Layer 2: Editorial Couple Photo Clipped Inside Envelope (Matched 100% to Image 4) */
+.env-layer-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  overflow: hidden;
+  border-radius: 0;
+  box-shadow: none;
+  display: block;
+  pointer-events: none;
+  clip-path: polygon(50% 7.3%, 96.5% 41.5%, 96.5% 85%, 3.5% 85%, 3.5% 41.5%);
+  -webkit-clip-path: polygon(50% 7.3%, 96.5% 41.5%, 96.5% 85%, 3.5% 85%, 3.5% 41.5%);
+}
+
+.env-couple-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+}
+
+/* Layer 3: Formal Invitation Card (emerges upward to frame, widened to 84%) */
+.env-layer-card {
+  position: absolute;
+  bottom: 65px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 84%;
+  max-width: 405px;
+  aspect-ratio: 508 / 700;
+  z-index: 2;
+  pointer-events: auto;
+  display: block;
+  background: transparent;
+  box-shadow: none;
+  will-change: transform;
+}
+
+.card-paper-bg {
+  display: none !important;
+}
+
+.card-lace-border {
+  content: url('../assets/images (1)/card-composite.webp') !important;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 3;
+  filter: drop-shadow(0 10px 24px rgba(25, 20, 15, 0.16));
+}
+
+.card-typography {
+  position: absolute;
+  top: 17.5%;
+  bottom: 27.5%;
+  left: 23.5%;
+  right: 23.5%;
+  z-index: 4;
+  width: auto;
+  text-align: center;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.card-families {
+  font-family: var(--font-sans);
+  font-size: clamp(0.64rem, 1.15vw, 0.72rem);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: #111111;
+  text-transform: uppercase;
+  line-height: 1.25;
+}
+
+.card-names {
+  font-family: var(--font-script);
+  font-size: clamp(1.95rem, 3.8vw, 2.45rem);
+  color: #000000;
+  line-height: 1.05;
+  font-weight: 500;
+  -webkit-text-stroke: 0.35px #000000;
+  white-space: nowrap;
+}
+
+.card-ampersand {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #222222;
+  margin: 0;
+  line-height: 1;
+}
+
+.card-invite {
+  font-family: var(--font-serif);
+  font-size: clamp(0.68rem, 1.25vw, 0.76rem);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1.45;
+  color: #111111;
+  text-transform: uppercase;
+  margin: 0.15rem 0;
+}
+
+.card-date {
+  font-family: var(--font-serif);
+  font-size: clamp(0.85rem, 1.5vw, 0.98rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #000000;
+  text-transform: uppercase;
+}
+
+.card-venue {
+  font-family: var(--font-serif);
+  font-size: clamp(0.64rem, 1.15vw, 0.74rem);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: #111111;
+  text-transform: uppercase;
+}
+
+/* Layer 4: Front Pocket with Watermark MR Monogram */
+.env-layer-front {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.env-front-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+  display: block;
+}
+
+.env-front-monogram {
+  position: absolute;
+  bottom: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-script);
+  font-size: 3.2rem;
+  color: rgba(185, 170, 153, 0.45);
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);
+  pointer-events: none;
+}
