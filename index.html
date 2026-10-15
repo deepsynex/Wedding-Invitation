@@ -14,12 +14,6 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png?v=2">
   <meta name="theme-color" content="#fdfaf6">
 
-  <!-- OpenGraph Social Sharing Metadata -->
-  <meta property="og:title" content="The Wedding Invitation of Mary &amp; Raja">
-  <meta property="og:description" content="Saturday, January 16, 2027 • Dubai, United Arab Emirates">
-  <meta property="og:image" content="assets/images (1)/close envalop.webp">
-  <meta property="og:type" content="website">
-
   <!-- Google Fonts Preconnect & Styles -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,13 +23,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="css/variables.css">
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/envelope.css">
-  <link rel="stylesheet" href="css/components.css">
-  <link rel="stylesheet" href="css/rsvp.css">
-  <link rel="stylesheet" href="css/responsive.css">
+  <!-- Master Stylesheet -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -49,7 +38,7 @@
     </div>
 
     <!-- 3D Interactive Envelope Stage -->
-    <div class="envelope-stage" id="envelopeStage" role="button" aria-label="Open wedding invitation envelope" tabindex="0">
+    <div class="envelope-stage" id="envelopeStage" tabindex="0">
       <div class="closed-envelope-wrapper">
         <!-- Master Closed Envelope Artwork -->
         <img src="assets/images (1)/close envalop.webp" alt="Wedding Invitation Envelope" class="closed-envelope-img">
@@ -57,8 +46,7 @@
         <!-- Wax Seal Cameo Stamp with Monogram -->
         <div class="wax-seal-target" id="waxSeal" title="Tap to open invitation">
           <img src="assets/images (1)/envlop-stamp.webp" alt="Cameo wax seal stamp" class="wax-seal-img">
-          <span class="wax-seal-monogram">MR</span>
-          <span class="wax-seal-pulse"></span>
+          <span class="wax-seal-monogram">M&R</span>
         </div>
 
         <!-- Calla Lily Stem resting horizontally across envelope bottom -->
@@ -399,11 +387,12 @@
 
         <!-- RSVP Form Element -->
         <form id="rsvpForm" novalidate>
+          <input type="hidden" id="editingSrNo" name="editingSrNo" value="">
           
-          <!-- Field 1: Guest Full Name -->
+          <!-- Field 1: Guest Name (Single Textbox) -->
           <div class="form-group">
-            <label for="guestName" class="form-label">Your Name:</label>
-            <input type="text" id="guestName" name="guestName" class="form-input" placeholder="e.g. Mary Tarazi" required autocomplete="name">
+            <label for="guestName" class="form-label">Your Name: <span class="required-star">*</span></label>
+            <input type="text" id="guestName" name="guestName" class="form-input" placeholder="Your Name *" required autocomplete="off">
           </div>
 
           <!-- Field 2: Attendance (Choice Tiles matching Video 00:23 / 00:30) -->
@@ -424,7 +413,7 @@
           </div>
 
           <!-- Field 3: Plus One Question (Choice Tiles) -->
-          <div class="form-group">
+          <div class="form-group" id="bringingGuestGroup">
             <label class="form-label">Will you be bringing someone to share this moment with you?</label>
             <div class="radio-cards-group">
               <label class="radio-card">
@@ -440,19 +429,28 @@
             </div>
           </div>
 
-          <!-- Field 4: Conditional Guest Name Field (revealed dynamically) -->
+          <!-- Field 4: Conditional Guests Count & Dynamic Names (revealed after ticking Yes) -->
           <div class="form-group guest-name-field" id="guestNameField">
             <div class="guest-name-field-inner">
-              <label for="plusOneName" class="form-label">If you are bringing a guest, please tell us their name:</label>
-              <input type="text" id="plusOneName" name="plusOneName" class="form-input" placeholder="Guest's full name">
+              
+              <!-- Number of Persons to Bring -->
+              <div class="sub-form-group">
+                <label for="bringingCount" class="form-label">How many guests will you be bringing with you? <span class="required-star">*</span></label>
+                <input type="number" id="bringingCount" name="bringingCount" class="form-input" min="1" max="10" placeholder="Number of guests (e.g. 1, 2, 3...)" autocomplete="off">
+                <p class="field-hint">Enter the number of guests attending with you (1 to 10).</p>
+              </div>
+
+              <!-- Container for dynamically created Attendee Name textboxes -->
+              <div class="attendees-container" id="attendeesContainer">
+                <label class="form-label attendees-list-title" id="attendeesListTitle" style="display: none;">Guest Names: <span class="required-star">*</span></label>
+                <div class="attendee-inputs-list" id="attendeeInputsList"></div>
+              </div>
+
             </div>
           </div>
 
           <!-- Solid Black Submit Button -->
           <button type="submit" id="rsvpSubmitBtn" class="rsvp-submit-btn">Submit RSVP</button>
-          
-          <!-- Canva Privacy & Profile Notice -->
-          <p class="rsvp-canva-note">Your Canva profile name will be shared. Never submit passwords. <a href="#privacy" onclick="return false;">Learn how we handle your data.</a></p>
 
           <div class="rsvp-form-back-wrap">
             <button type="button" class="btn-back" data-nav-target="rsvp-prompt">&lt; GO BACK</button>
@@ -465,7 +463,11 @@
           <h3 class="confirmation-title">Thank You!</h3>
           <p class="confirmation-message">We have received your response. It means the world to us to share this celebration with you!</p>
           <div class="confirmation-details-summary" id="confirmationSummary"></div>
-          <button type="button" class="btn btn-outline" id="rsvpResetBtn">EDIT OR SUBMIT ANOTHER RESPONSE</button>
+          
+          <div class="confirmation-actions">
+            <button type="button" class="btn btn-outline" id="rsvpResetBtn">SUBMIT ANOTHER RESPONSE</button>
+            <button type="button" class="btn btn-outline" id="rsvpEditCurrentBtn">EDIT THIS RESPONSE</button>
+          </div>
         </div>
 
       </div>
@@ -473,7 +475,7 @@
   </section>
 
 
-  <!-- Application Script Modules -->
-  <script type="module" src="js/app.js"></script>
+  <!-- Master Application Script -->
+  <script src="app.js"></script>
 </body>
 </html>
