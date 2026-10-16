@@ -12,26 +12,42 @@
 
 :root {
   /* Color Palette */
-  --color-bg: #fdfaf6;             /* Warm alabaster canvas */
-  --color-surface-card: #ffffff;   /* Pure white card surface */
-  --color-surface-warm: #fcf6ee;   /* Warm linen card surface */
-  --color-surface-subtle: #f5ece0; /* Light cream highlight */
-  --color-surface-dark: #141414;   /* Rich black / dark charcoal */
+  --color-bg: #fdfaf6;
+  /* Warm alabaster canvas */
+  --color-surface-card: #ffffff;
+  /* Pure white card surface */
+  --color-surface-warm: #fcf6ee;
+  /* Warm linen card surface */
+  --color-surface-subtle: #f5ece0;
+  /* Light cream highlight */
+  --color-surface-dark: #141414;
+  /* Rich black / dark charcoal */
 
   /* Typography Colors - High Contrast & Maximum Readability */
-  --color-text-primary: #0a0a0a;   /* Rich true black */
-  --color-text-secondary: #1a1715; /* Deep espresso charcoal */
-  --color-text-muted: #38332e;     /* High-legibility secondary text */
-  --color-text-subtle: #4a443e;    /* Clear metadata & timestamps */
-  --color-text-light: #ffffff;     /* White on dark buttons */
+  --color-text-primary: #0a0a0a;
+  /* Rich true black */
+  --color-text-secondary: #1a1715;
+  /* Deep espresso charcoal */
+  --color-text-muted: #38332e;
+  /* High-legibility secondary text */
+  --color-text-subtle: #4a443e;
+  /* Clear metadata & timestamps */
+  --color-text-light: #ffffff;
+  /* White on dark buttons */
 
   /* Metallic & Decorative Accents */
-  --color-gold: #9e7f5b;          /* Antique champagne gold */
-  --color-gold-hover: #7d6344;    /* Richer gold for hover states */
-  --color-gold-light: #c9b79f;    /* Subtle gold shimmer */
-  --color-border-warm: #d5c3af;   /* Delicate lace & frame border */
-  --color-border-subtle: #c4b8a8; /* Light divider and card borders */
-  --color-border-dark: #0a0a0a;   /* Button borders */
+  --color-gold: #9e7f5b;
+  /* Antique champagne gold */
+  --color-gold-hover: #7d6344;
+  /* Richer gold for hover states */
+  --color-gold-light: #c9b79f;
+  /* Subtle gold shimmer */
+  --color-border-warm: #d5c3af;
+  /* Delicate lace & frame border */
+  --color-border-subtle: #c4b8a8;
+  /* Light divider and card borders */
+  --color-border-dark: #0a0a0a;
+  /* Button borders */
 
   /* Form & Interactive Elements */
   --color-input-bg: #fcfaf7;
@@ -87,7 +103,9 @@
    Base Styles, Resets & Global Layout
    ========================================================================== */
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -121,7 +139,7 @@ body::before {
   position: fixed;
   inset: 0;
   background-image: radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.7) 0%, transparent 80%),
-                    radial-gradient(circle at 10% 80%, rgba(245, 237, 225, 0.5) 0%, transparent 60%);
+    radial-gradient(circle at 10% 80%, rgba(245, 237, 225, 0.5) 0%, transparent 60%);
   pointer-events: none;
   z-index: 0;
 }
@@ -152,6 +170,7 @@ body::before {
     opacity: 0;
     transform: translateY(8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -215,7 +234,9 @@ body::before {
 }
 
 /* Global Single-Line Heading Enforcement (All Screens) */
-h1, h2, h3,
+h1,
+h2,
+h3,
 .envelope-title,
 .envelope-subtitle,
 .story-title,
@@ -395,8 +416,8 @@ h1, h2, h3,
 /* Cameo Wax Seal Stamp with Interlocking Serif MR */
 .wax-seal-target {
   position: absolute;
-  top: 58.5%;
-  left: 50%;
+  top: 60.5%;
+  left: 51%;
   transform: translate(-50%, -50%);
   width: 74px;
   height: 90px;
@@ -498,7 +519,7 @@ h1, h2, h3,
 }
 
 .lily-stem-img {
-  content: url('../assets/images (1)/lily-horizontal.webp') !important;
+  content: url('assets/images/lily-horizontal.webp') !important;
   width: 100%;
   height: auto;
   display: block;
@@ -587,6 +608,7 @@ h1, h2, h3,
 .env-layer {
   position: absolute;
   width: 100%;
+  cursor: pointer;
 }
 
 /* Layer 1: Back + Open Lace Flap */
@@ -596,6 +618,7 @@ h1, h2, h3,
   width: 100%;
   height: 100%;
   z-index: 1;
+  cursor: pointer;
 }
 
 .env-back-img {
@@ -655,6 +678,7 @@ h1, h2, h3,
   aspect-ratio: 508 / 700;
   z-index: 2;
   pointer-events: auto;
+  cursor: pointer;
   display: block;
   background: transparent;
   box-shadow: none;
@@ -666,7 +690,7 @@ h1, h2, h3,
 }
 
 .card-lace-border {
-  content: url('../assets/images (1)/card-composite.webp') !important;
+  content: url('assets/images/card-composite.webp') !important;
   position: absolute;
   inset: 0;
   width: 100%;
@@ -777,9 +801,11 @@ h1, h2, h3,
   transform: translateX(-50%);
   font-family: var(--font-script);
   font-size: 3.2rem;
-  color: rgba(185, 170, 153, 0.45);
+  font-weight: 500;
+  color: #544436;
+  -webkit-text-stroke: 0.35px #544436;
   letter-spacing: 0.04em;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9), 0 -0.5px 0.5px rgba(0, 0, 0, 0.12);
   pointer-events: none;
 }
 
@@ -798,8 +824,9 @@ h1, h2, h3,
 
 .story-section {
   width: 100%;
-  margin: 5rem auto 2.5rem auto;
+  margin: 0 auto 2.5rem auto;
   text-align: center;
+  padding-top: 5rem;
 }
 
 .story-title {
@@ -866,7 +893,7 @@ h1, h2, h3,
 .countdown-section {
   width: 100%;
   text-align: center;
-  margin: 2rem 0 6rem 0;
+  margin: 0 0 6rem 0;
   padding: 2rem 1.5rem;
   background: transparent;
   border: none;
@@ -949,7 +976,7 @@ h1, h2, h3,
   align-items: center;
   background-color: #f7f4ee;
   background-image: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.65) 0%, transparent 80%),
-    url('../assets/images (1)/card-texture.webp');
+    url('assets/images/card-texture.webp');
   background-repeat: no-repeat, repeat;
   background-size: 100% 100%, 320px auto;
   position: relative;
@@ -1068,7 +1095,7 @@ h1, h2, h3,
 .rsvp-champagne-backdrop {
   width: 100%;
   min-height: clamp(520px, 45vw, 650px);
-  background-image: url('../assets/images (1)/champagne-backdrop-clean.webp');
+  background-image: url('assets/images/champagne-backdrop-clean.webp');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -1094,7 +1121,7 @@ h1, h2, h3,
   user-select: none;
 }
 
-.rsvp-envelope-card:hover { 
+.rsvp-envelope-card:hover {
   filter: drop-shadow(0 32px 55px rgba(25, 20, 15, 0.35)) drop-shadow(0 6px 16px rgba(25, 20, 15, 0.2));
 }
 
@@ -1755,7 +1782,7 @@ h1, h2, h3,
   position: relative;
   height: clamp(520px, 58vw, 680px);
   min-height: 520px;
-  background-image: linear-gradient(rgba(10, 8, 6, 0.46), rgba(10, 8, 6, 0.46)), url('../assets/images (1)/bg-lilies.webp');
+  background-image: linear-gradient(rgba(10, 8, 6, 0.46), rgba(10, 8, 6, 0.46)), url('assets/images/bg-lilies.webp');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -2083,11 +2110,11 @@ h1, h2, h3,
   transition: border-color var(--transition-fast);
 }
 
-.radio-card input[type="radio"]:checked ~ .radio-indicator {
+.radio-card input[type="radio"]:checked~.radio-indicator {
   border-color: var(--color-text-primary);
 }
 
-.radio-card input[type="radio"]:checked ~ .radio-indicator::after {
+.radio-card input[type="radio"]:checked~.radio-indicator::after {
   content: "";
   position: absolute;
   top: 3px;
@@ -2581,8 +2608,8 @@ h1, h2, h3,
   }
 
   .env-front-monogram {
-    font-size: 1.9rem;
-    bottom: 16%;
+    font-size: 2.3rem;
+    bottom: 17%;
   }
 
   .story-section {
@@ -2968,9 +2995,11 @@ h1, h2, h3,
   .card-names {
     font-size: 1.5rem;
   }
+
   .card-venue {
     font-size: 0.55rem;
   }
+
   .card-date {
     font-size: 0.80rem;
   }
@@ -3115,4 +3144,3 @@ h1, h2, h3,
     scroll-behavior: auto !important;
   }
 }
-

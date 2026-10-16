@@ -1,0 +1,3146 @@
+/* ==========================================================================
+   Mary & Raja Wedding Invitation - Combined Stylesheet (All-in-One)
+   ========================================================================== */
+
+/* ==========================================
+   Source: css/variables.css
+   ========================================== */
+
+/* ==========================================================================
+   Design Tokens & Variables: Mary & Raja Wedding Invitation
+   ========================================================================== */
+
+:root {
+  /* Color Palette */
+  --color-bg: #fdfaf6;
+  /* Warm alabaster canvas */
+  --color-surface-card: #ffffff;
+  /* Pure white card surface */
+  --color-surface-warm: #fcf6ee;
+  /* Warm linen card surface */
+  --color-surface-subtle: #f5ece0;
+  /* Light cream highlight */
+  --color-surface-dark: #141414;
+  /* Rich black / dark charcoal */
+
+  /* Typography Colors - High Contrast & Maximum Readability */
+  --color-text-primary: #0a0a0a;
+  /* Rich true black */
+  --color-text-secondary: #1a1715;
+  /* Deep espresso charcoal */
+  --color-text-muted: #38332e;
+  /* High-legibility secondary text */
+  --color-text-subtle: #4a443e;
+  /* Clear metadata & timestamps */
+  --color-text-light: #ffffff;
+  /* White on dark buttons */
+
+  /* Metallic & Decorative Accents */
+  --color-gold: #9e7f5b;
+  /* Antique champagne gold */
+  --color-gold-hover: #7d6344;
+  /* Richer gold for hover states */
+  --color-gold-light: #c9b79f;
+  /* Subtle gold shimmer */
+  --color-border-warm: #d5c3af;
+  /* Delicate lace & frame border */
+  --color-border-subtle: #c4b8a8;
+  /* Light divider and card borders */
+  --color-border-dark: #0a0a0a;
+  /* Button borders */
+
+  /* Form & Interactive Elements */
+  --color-input-bg: #fcfaf7;
+  --color-input-border: #b8aba0;
+  --color-input-focus: #8f7250;
+  --color-radio-unselected: #e4ded7;
+  --color-radio-selected: #0a0a0a;
+
+  /* Typography Fonts */
+  --font-script: 'Pinyon Script', cursive;
+  --font-serif: 'Cormorant Garamond', Garamond, 'Times New Roman', serif;
+  --font-sans: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Fluid Typography Scale */
+  --text-hero-script: clamp(3.2rem, 8vw, 5.2rem);
+  --text-section-script: clamp(2.6rem, 6vw, 3.8rem);
+  --text-card-script: clamp(2.2rem, 5vw, 2.85rem);
+  --text-subhead-serif: clamp(1.35rem, 3vw, 1.8rem);
+  --text-body-serif: clamp(1.1rem, 2vw, 1.25rem);
+  --text-body-sm: clamp(0.95rem, 1.6vw, 1.05rem);
+  --text-button-sans: 0.88rem;
+  --text-meta-sans: 0.82rem;
+
+  /* Letter Spacing */
+  --tracking-wide: 0.22em;
+  --tracking-medium: 0.14em;
+  --tracking-tight: 0.04em;
+
+  /* Elevation & Shadows */
+  --shadow-envelope: 0 25px 60px -15px rgba(35, 25, 15, 0.18), 0 8px 24px rgba(0, 0, 0, 0.06);
+  --shadow-card: 0 16px 36px rgba(35, 25, 15, 0.08), 0 2px 8px rgba(0, 0, 0, 0.03);
+  --shadow-card-hover: 0 22px 48px rgba(35, 25, 15, 0.14);
+  --shadow-wax: 0 10px 24px rgba(120, 105, 85, 0.35);
+  --shadow-button-hover: 0 8px 22px rgba(19, 19, 19, 0.2);
+
+  /* Transitions */
+  --transition-fast: 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  --transition-normal: 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-slow: 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-bounce: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Layout Constraints */
+  --container-max-width: 860px;
+  --card-max-width: 680px;
+  --envelope-width: min(540px, 100%);
+}
+
+/* ==========================================
+   Source: css/base.css
+   ========================================== */
+
+/* ==========================================================================
+   Base Styles, Resets & Global Layout
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-serif);
+  line-height: 1.7;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Background Subtle Texture */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.7) 0%, transparent 80%),
+    radial-gradient(circle at 10% 80%, rgba(245, 237, 225, 0.5) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Screen Management Architecture */
+.screen-view {
+  display: none !important;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.screen-view.active {
+  display: block !important;
+  animation: screenFadeIn 0.4s ease-out;
+}
+
+.envelope-screen.active,
+.rsvp-prompt-screen.active {
+  display: flex !important;
+}
+
+@keyframes screenFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Container Constraints */
+.site-wrapper {
+  width: 100%;
+  position: relative;
+}
+
+.content-container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 clamp(0.85rem, 3.5vw, 1.5rem);
+  box-sizing: border-box;
+  position: relative;
+}
+
+.content-container-narrow {
+  width: 100%;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 clamp(0.85rem, 3.5vw, 1.5rem);
+  box-sizing: border-box;
+  position: relative;
+}
+
+.content-container-wide {
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 0 clamp(0.85rem, 3.5vw, 1.5rem);
+  box-sizing: border-box;
+  position: relative;
+}
+
+.full-bleed-banner {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Typography Helpers */
+.font-script {
+  font-family: var(--font-script);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+.font-sans {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+/* Global Single-Line Heading Enforcement (All Screens) */
+h1,
+h2,
+h3,
+.envelope-title,
+.envelope-subtitle,
+.story-title,
+.countdown-heading,
+.petal-badge-title,
+.footer-quote,
+.details-main-title,
+.timeline-title,
+.registry-title,
+.faqs-clean-title,
+.details-callas-quote,
+.rsvp-prompt-title,
+.rsvp-prompt-subtitle,
+.rsvp-form-title,
+.confirmation-title,
+.card-names,
+.footer-names,
+.couple-names,
+.venue-type {
+  white-space: nowrap;
+}
+
+/* Multi-line Headings / Sentences & Questions */
+.faq-clean-question,
+.guideline-heading {
+  white-space: normal !important;
+  word-break: break-word;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-sans);
+  font-size: var(--text-button-sans);
+  font-weight: 500;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 2px;
+  padding: 0.85rem 2rem;
+  transition: all var(--transition-fast);
+  background: transparent;
+  outline: none;
+}
+
+.btn-outline {
+  border: 1px solid var(--color-border-dark);
+  color: var(--color-text-primary);
+  background-color: transparent;
+}
+
+.btn-outline:hover {
+  background-color: var(--color-text-primary);
+  color: var(--color-text-light);
+  border-color: var(--color-text-primary);
+  box-shadow: var(--shadow-button-hover);
+  transform: translateY(-2px);
+}
+
+.btn-dark {
+  background-color: var(--color-text-primary);
+  color: var(--color-text-light);
+  border: 1px solid var(--color-text-primary);
+}
+
+.btn-dark:hover {
+  background-color: var(--color-gold);
+  border-color: var(--color-gold);
+  box-shadow: var(--shadow-button-hover);
+  transform: translateY(-2px);
+}
+
+.btn-back {
+  font-family: var(--font-sans);
+  font-size: var(--text-meta-sans);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.btn-back:hover {
+  color: var(--color-text-primary);
+  transform: translateX(-3px);
+}
+
+/* ==========================================
+   Source: css/envelope.css
+   ========================================== */
+
+/* ==========================================================================
+   Envelope Styles: Screen 1 (Closed Gate) & Screen 2 (Opened Hero Assembly)
+   Matched 100% to User Reference Screenshots & Video
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Screen 1: The Closed Envelope Gate (Home Page)
+   -------------------------------------------------------------------------- */
+
+.envelope-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1.5rem 2.5rem 1.5rem;
+  text-align: center;
+  position: relative;
+  background-color: var(--color-bg);
+}
+
+.envelope-header {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.envelope-subtitle {
+  font-family: var(--font-serif);
+  font-size: clamp(0.72rem, 1.8vw, 1.05rem);
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  color: var(--color-text-primary);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.envelope-title {
+  font-family: var(--font-script);
+  font-size: clamp(2.1rem, 7.5vw, 5.2rem);
+  color: var(--color-text-primary);
+  line-height: 1.15;
+  font-weight: 500;
+  -webkit-text-stroke: 0.35px var(--color-text-primary);
+  white-space: nowrap;
+}
+
+/* 3D Envelope Stage */
+.envelope-stage {
+  perspective: 1200px;
+  width: var(--envelope-width);
+  max-width: min(540px, 100%);
+  margin: 0 auto;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  z-index: 2;
+}
+
+.closed-envelope-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.25 / 1;
+  transform-style: preserve-3d;
+  transition: transform var(--transition-normal);
+  filter: drop-shadow(0 20px 45px rgba(35, 25, 15, 0.16));
+}
+
+.closed-envelope-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Cameo Wax Seal Stamp with Interlocking Serif MR */
+.wax-seal-target {
+  position: absolute;
+  top: 60.5%;
+  left: 51%;
+  transform: translate(-50%, -50%);
+  width: 74px;
+  height: 90px;
+  z-index: 20;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-bounce), filter var(--transition-fast);
+}
+
+.wax-seal-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 3px 8px rgba(80, 60, 40, 0.2));
+}
+
+/* Interlocking Serif Monogram in Center of Cameo */
+.wax-seal-monogram {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: #bba185;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  pointer-events: none;
+  text-shadow: 0 0.5px 1px rgba(255, 255, 255, 0.8);
+}
+
+.wax-seal-monogram-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 34px;
+  height: 42px;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.seal-monogram-m {
+  position: absolute;
+  top: 5px;
+  left: 3px;
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: #bba185;
+  line-height: 1;
+  text-shadow: 0 0.5px 0.5px rgba(255, 255, 255, 0.7);
+}
+
+.seal-monogram-r {
+  position: absolute;
+  bottom: 5px;
+  right: 3px;
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: #bba185;
+  line-height: 1;
+  text-shadow: 0 0.5px 0.5px rgba(255, 255, 255, 0.7);
+}
+
+
+
+@keyframes sealPulse {
+
+  0%,
+  100% {
+    transform: scale(0.96);
+    opacity: 0.35;
+  }
+
+  50% {
+    transform: scale(1.15);
+    opacity: 0.85;
+  }
+}
+
+/* Horizontal Calla Lily Stem across bottom front of envelope */
+.envelope-lily-stem {
+  position: absolute;
+  bottom: -16px;
+  left: 2%;
+  width: 96%;
+  pointer-events: none;
+  z-index: 15;
+}
+
+.lily-stem-img {
+  content: url('assets/images/lily-horizontal.webp') !important;
+  width: 100%;
+  height: auto;
+  display: block;
+  transform: none !important;
+  filter: drop-shadow(0 8px 16px rgba(25, 20, 15, 0.22));
+}
+
+/* Bottom Action Prompt */
+.envelope-prompt {
+  margin-top: 2.4rem;
+  display: inline-block;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  position: relative;
+  z-index: 2;
+  transition: transform var(--transition-fast), color var(--transition-fast);
+}
+
+.envelope-prompt:hover {
+  transform: translateY(-2px);
+}
+
+.envelope-prompt-text {
+  font-family: var(--font-serif);
+  font-size: 0.96rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+}
+
+.envelope-prompt-icon {
+  display: none !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   Screen 2: Opened Envelope Hero Assembly (Full-Bleed Floral Backdrop)
+   Matched 100% to sec1_hero.png
+   -------------------------------------------------------------------------- */
+
+.hero-banner {
+  width: 100%;
+  position: relative;
+  min-height: clamp(620px, 88vh, 760px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: #f7f1e7;
+  border-bottom: 1px solid var(--color-border-warm);
+}
+
+.hero-floral-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 36%;
+  display: block;
+}
+
+/* Centered Assembly of Envelope Layers */
+.opened-envelope-assembly {
+  position: relative;
+  z-index: 2;
+  width: min(490px, 92vw);
+  height: 630px;
+  margin: 1.5rem auto 1rem auto;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  filter: drop-shadow(0 25px 50px rgba(25, 20, 15, 0.22));
+}
+
+.env-layer {
+  position: absolute;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* Layer 1: Back + Open Lace Flap */
+.env-layer-back {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  cursor: pointer;
+}
+
+.env-back-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+  display: block;
+}
+
+/* Card Slot: clips bottom so nothing spills below envelope, but extends top to prevent upside cropping */
+.env-card-slot {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: -140px;
+  width: 100%;
+  height: calc(100% + 140px);
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Layer 2: Editorial Couple Photo Clipped Inside Envelope (Matched 100% to Image 4) */
+.env-layer-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  overflow: hidden;
+  border-radius: 0;
+  box-shadow: none;
+  display: block;
+  pointer-events: none;
+  clip-path: polygon(50% 7.3%, 96.5% 41.5%, 96.5% 85%, 3.5% 85%, 3.5% 41.5%);
+  -webkit-clip-path: polygon(50% 7.3%, 96.5% 41.5%, 96.5% 85%, 3.5% 85%, 3.5% 41.5%);
+}
+
+.env-couple-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+}
+
+/* Layer 3: Formal Invitation Card (emerges upward to frame, widened to 84%) */
+.env-layer-card {
+  position: absolute;
+  bottom: 65px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 84%;
+  max-width: 405px;
+  aspect-ratio: 508 / 700;
+  z-index: 2;
+  pointer-events: auto;
+  cursor: pointer;
+  display: block;
+  background: transparent;
+  box-shadow: none;
+  will-change: transform;
+}
+
+.card-paper-bg {
+  display: none !important;
+}
+
+.card-lace-border {
+  content: url('assets/images/card-composite.webp') !important;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 3;
+  filter: drop-shadow(0 10px 24px rgba(25, 20, 15, 0.16));
+}
+
+.card-typography {
+  position: absolute;
+  top: 17.5%;
+  bottom: 27.5%;
+  left: 23.5%;
+  right: 23.5%;
+  z-index: 4;
+  width: auto;
+  text-align: center;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.card-families {
+  font-family: var(--font-sans);
+  font-size: clamp(0.55rem, -0.85vw, 0.70rem);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: #111111;
+  text-transform: uppercase;
+  line-height: 1.25;
+}
+
+.card-names {
+  font-family: var(--font-script);
+  font-size: clamp(1.95rem, 3.8vw, 2.45rem);
+  color: #000000;
+  line-height: 1.05;
+  font-weight: 500;
+  -webkit-text-stroke: 0.35px #000000;
+  white-space: nowrap;
+}
+
+.card-ampersand {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #222222;
+  margin: 0;
+  line-height: 1;
+}
+
+.card-invite {
+  font-family: var(--font-serif);
+  font-size: clamp(0.68rem, 1.25vw, 0.76rem);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  line-height: 1.45;
+  color: #111111;
+  text-transform: uppercase;
+  margin: 0.15rem 0;
+}
+
+.card-date {
+  font-family: var(--font-serif);
+  font-size: clamp(0.85rem, 1.5vw, 0.98rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #000000;
+  text-transform: uppercase;
+}
+
+.card-venue {
+  font-family: var(--font-serif);
+  font-size: clamp(0.55rem, 0.1vw, 0.74rem);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: #111111;
+  text-transform: uppercase;
+}
+
+/* Layer 4: Front Pocket with Watermark MR Monogram */
+.env-layer-front {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.env-front-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+  display: block;
+}
+
+.env-front-monogram {
+  position: absolute;
+  bottom: 18%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-script);
+  font-size: 3.2rem;
+  font-weight: 500;
+  color: #544436;
+  -webkit-text-stroke: 0.35px #544436;
+  letter-spacing: 0.04em;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.9), 0 -0.5px 0.5px rgba(0, 0, 0, 0.12);
+  pointer-events: none;
+}
+
+/* ==========================================
+   Source: css/components.css
+   ========================================== */
+
+/* ==========================================================================
+   Components: Main Invitation Hub, The Details, Countdown, Portals & FAQs
+   Matched 100% to User Reference Screenshots (Page 2) & Video
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Screen 2: Story Section ("The next chapter begins" - sec2_story_countdown.png)
+   -------------------------------------------------------------------------- */
+
+.story-section {
+  width: 100%;
+  margin: 0 auto 2.5rem auto;
+  text-align: center;
+  padding-top: 5rem;
+}
+
+.story-title {
+  font-family: var(--font-script);
+  font-size: clamp(1.55rem, 5.6vw, 4.4rem);
+  color: #0a0a0a;
+  line-height: 1.15;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  -webkit-text-stroke: 0.35px #0a0a0a;
+  white-space: nowrap;
+}
+
+.story-body {
+  margin: 1.8rem auto 1.5rem auto;
+  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 0 1rem;
+}
+
+.story-body p {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.8;
+  color: #111111;
+}
+
+.story-signoff {
+  margin-top: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.with-love {
+  font-family: var(--font-serif);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  color: #111111;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.couple-names {
+  font-family: var(--font-script);
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  color: #0a0a0a;
+  font-weight: 500;
+  -webkit-text-stroke: 0.35px #0a0a0a;
+  white-space: nowrap;
+}
+
+
+/* --------------------------------------------------------------------------
+   Live Celebration Countdown (sec2_story_countdown.png)
+   -------------------------------------------------------------------------- */
+
+.countdown-section {
+  width: 100%;
+  text-align: center;
+  margin: 0 0 6rem 0;
+  padding: 2rem 1.5rem;
+  background: transparent;
+  border: none;
+}
+
+.countdown-heading {
+  font-family: var(--font-script);
+  font-size: clamp(1.55rem, 5.5vw, 4.2rem);
+  color: #0a0a0a;
+  margin-bottom: 2.2rem;
+  font-weight: 500;
+  line-height: 1.15;
+  -webkit-text-stroke: 0.35px #0a0a0a;
+  white-space: nowrap;
+}
+
+.countdown-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.35rem, 2vw, 1.6rem);
+  flex-wrap: nowrap !important;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 1 auto;
+  min-width: 0 !important;
+}
+
+.countdown-digits {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 5.2vw, 4.2rem);
+  font-weight: 400;
+  line-height: 1;
+  color: #0a0a0a;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.countdown-label {
+  font-family: var(--font-serif);
+  font-size: clamp(0.55rem, 1.4vw, 0.88rem);
+  font-weight: 600;
+  letter-spacing: clamp(0.12em, 0.4vw, 0.24em);
+  color: #1a1715;
+  margin-top: 0.45rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.countdown-divider {
+  font-family: var(--font-serif);
+  font-size: clamp(1.3rem, 4vw, 2.8rem);
+  font-weight: 400;
+  color: #222222;
+  line-height: 1;
+  margin-bottom: clamp(0.6rem, 1.5vw, 1.4rem);
+  user-select: none;
+  flex-shrink: 0;
+}
+
+
+/* --------------------------------------------------------------------------
+   Gateway 1: "The Details" Painted Flower Petal Badge (sec3_details.png)
+   -------------------------------------------------------------------------- */
+
+.gateway-details-section {
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+  padding: 5rem 1.5rem 6rem 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f7f4ee;
+  background-image: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.65) 0%, transparent 80%),
+    url('assets/images/card-texture.webp');
+  background-repeat: no-repeat, repeat;
+  background-size: 100% 100%, 320px auto;
+  position: relative;
+}
+
+.gateway-details-card {
+  position: relative;
+  max-width: 440px;
+  width: 100%;
+  cursor: default;
+  perspective: 1000px;
+  user-select: none;
+}
+
+.details-petal-badge {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 15px 35px rgba(35, 25, 15, 0.09));
+}
+
+.petal-badge-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.petal-badge-content {
+  position: absolute;
+  top: 37%;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  gap: 0.55rem;
+}
+
+.petal-badge-title {
+  font-family: var(--font-script), cursive;
+  font-size: clamp(2.35rem, 4.6vw, 2.95rem);
+  color: #1a1a1a;
+  line-height: 1.05;
+  font-weight: 400;
+  margin: 0;
+  display: block;
+  -webkit-text-stroke: 0;
+  white-space: nowrap;
+}
+
+.petal-btn {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(0.72rem, 1.25vw, 0.8rem);
+  font-weight: 800;
+  letter-spacing: 0.28em;
+  padding: 0.25rem 0.8rem;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  color: #333333;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: none;
+  display: inline-block;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+  position: relative;
+  z-index: 10;
+  transition: opacity var(--transition-fast);
+}
+
+
+
+.petal-btn:active {
+  opacity: 0.9;
+}
+
+/* Horizontal calla lily stem lying across bottom of badge, passing right below VIEW DETAILS */
+.petal-badge-lily {
+  position: absolute;
+  bottom: 3%;
+  left: 7%;
+  width: 90%;
+  height: auto;
+  pointer-events: none;
+  z-index: 3;
+  filter: drop-shadow(0 6px 14px rgba(25, 20, 15, 0.16));
+}
+
+
+/* --------------------------------------------------------------------------
+   Gateway 2: "Kindly RSVP" Keepsake Banner on Crystal Coupes (Layered DOM Assembly)
+   -------------------------------------------------------------------------- */
+
+.rsvp-banner-section {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+}
+
+.rsvp-champagne-backdrop {
+  width: 100%;
+  min-height: clamp(520px, 45vw, 650px);
+  background-image: url('assets/images/champagne-backdrop-clean.webp');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 3.5rem 1.5rem;
+  box-sizing: border-box;
+}
+
+/* Antigravity floating envelope card */
+.rsvp-envelope-card {
+  position: relative;
+  z-index: 2;
+  width: min(390px, 86vw);
+  aspect-ratio: 514 / 653;
+  transform: rotate(10deg);
+  transform-origin: center center;
+  filter: drop-shadow(0 22px 42px rgba(25, 20, 15, 0.28)) drop-shadow(0 4px 12px rgba(25, 20, 15, 0.15));
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), filter 0.4s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.rsvp-envelope-card:hover {
+  filter: drop-shadow(0 32px 55px rgba(25, 20, 15, 0.35)) drop-shadow(0 6px 16px rgba(25, 20, 15, 0.2));
+}
+
+/* Layer 1: Scalloped open envelope back */
+.rsvp-layer-back {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 1;
+  pointer-events: none;
+  display: block;
+}
+
+/* Layer 2: Black & White Keepsake Couple Photo Card */
+.rsvp-card-photo-wrap {
+  position: absolute;
+  top: 19.5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 74%;
+  aspect-ratio: 520 / 390;
+  z-index: 2;
+  box-shadow: 0 4px 16px rgba(20, 15, 10, 0.22);
+  border-radius: 1px;
+  overflow: hidden;
+  background: #ffffff;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
+}
+
+.rsvp-envelope-card:hover .rsvp-card-photo-wrap {
+  transform: translateX(-50%) translateY(-10px);
+}
+
+.rsvp-couple-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Layer 3: Envelope front pocket */
+.rsvp-card-pocket {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.rsvp-pocket-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+}
+
+.rsvp-pocket-content {
+  position: absolute;
+  bottom: 11%;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.35rem, 1vw, 0.65rem);
+  text-align: center;
+  pointer-events: auto;
+  z-index: 4;
+}
+
+.rsvp-pocket-script {
+  font-family: var(--font-script), 'Pinyon Script', cursive;
+  font-size: clamp(2.1rem, 4.8vw, 2.75rem);
+  color: #1a1a1a;
+  line-height: 1.1;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  user-select: none;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
+}
+
+.rsvp-pocket-btn {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(0.72rem, 1.2vw, 0.82rem);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #2a2622;
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(80, 70, 60, 0.28);
+  border-radius: 2px;
+  padding: clamp(0.38rem, 0.8vw, 0.52rem) clamp(1.2rem, 2.4vw, 1.8rem);
+  cursor: pointer;
+  backdrop-filter: blur(2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.25s ease;
+  outline: none;
+}
+
+.rsvp-pocket-btn:hover {
+  /* background: rgba(255, 255, 255, 0.88); */
+  color: #111111;
+  /* border-color: rgba(40, 35, 30, 0.6); */
+  /* transform: translateY(-1px); */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.rsvp-pocket-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+
+/* --------------------------------------------------------------------------
+   Monogram Footer (uploaded_media_2_1791983003588.png)
+   -------------------------------------------------------------------------- */
+
+.monogram-footer {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+  text-align: center;
+  padding: clamp(4.5rem, 8vw, 6.5rem) 1.5rem clamp(3.5rem, 6vw, 5rem) 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+  background-color: #faf7f2;
+  user-select: none;
+}
+
+.footer-emblem {
+  width: clamp(130px, 16vw, 175px);
+  height: auto;
+  margin-bottom: 0.4rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.04));
+  pointer-events: none;
+}
+
+.footer-quote {
+  font-family: var(--font-script), 'Pinyon Script', cursive;
+  font-size: clamp(1.05rem, 4.4vw, 3.1rem);
+  color: #1a1a1a;
+  line-height: 1.25;
+  font-weight: 400;
+  margin: 0;
+  -webkit-text-stroke: 0;
+  letter-spacing: normal;
+  white-space: nowrap;
+}
+
+.footer-couple {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.5rem;
+}
+
+.footer-with-love {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(0.76rem, 1.3vw, 0.88rem);
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.footer-names {
+  font-family: var(--font-script), 'Pinyon Script', cursive;
+  font-size: clamp(2.1rem, 5.8vw, 3.6rem);
+  color: #1a1a1a;
+  font-weight: 400;
+  line-height: 1.2;
+  -webkit-text-stroke: 0;
+  letter-spacing: normal;
+  white-space: nowrap;
+}
+
+.footer-back-link {
+  margin-top: 1.2rem;
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(0.72rem, 1.2vw, 0.82rem);
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  color: #222222;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  text-transform: uppercase;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+.footer-back-link:hover {
+  color: #000000;
+  transform: translateY(-1px);
+}
+
+/* Canva Bottom Status Bar completely hidden */
+.canva-footer-bar {
+  display: none !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   Screen 3: The Event Details View
+   -------------------------------------------------------------------------- */
+
+.details-screen {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #faf7f2;
+  min-height: 100vh;
+  overflow-x: hidden;
+  user-select: none;
+  transform: none !important;
+}
+
+.details-screen.active {
+  animation: none !important;
+  transform: none !important;
+}
+
+.details-content-column {
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 3rem clamp(1.25rem, 3.5vw, 2.5rem) 0 clamp(1.25rem, 3.5vw, 2.5rem);
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* Top Navigation: < GO BACK */
+.details-nav-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 2rem;
+}
+
+.details-top-back {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(0.75rem, 1.2vw, 0.82rem);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: #1a1a1a;
+  background: none;
+  border: none;
+  padding: 0.4rem 0;
+  cursor: pointer;
+  text-transform: uppercase;
+  transform: none !important;
+  box-shadow: none !important;
+  transition: color var(--transition-fast);
+}
+
+.details-top-back:hover {
+  color: #000000;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Header */
+.details-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+  width: 100%;
+  max-width: 100%;
+}
+
+.details-main-title {
+  font-family: var(--font-script), 'Pinyon Script', cursive;
+  font-size: clamp(2.4rem, 6.8vw, 4.4rem);
+  color: #1a1a1a;
+  margin: 0 0 0.8rem 0;
+  line-height: 1.1;
+  font-weight: 400;
+  -webkit-text-stroke: 0;
+  letter-spacing: normal;
+  white-space: nowrap;
+}
+
+.details-intro-text {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-size: clamp(0.95rem, 1.35vw, 1.08rem);
+  color: #3a3a3a;
+  line-height: 1.7;
+  margin: 0 auto;
+  max-width: 580px;
+}
+
+/* Venues 2-Column Grid - Elegantly Centered & Balanced */
+.venues-grid {
+  width: 100%;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(2rem, 4.5vw, 3.8rem);
+  margin: 0 auto 5rem auto;
+}
+
+.venue-card {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: none;
+  width: 100%;
+}
+
+.venue-sketch-icon {
+  width: auto;
+  height: clamp(100px, 12vw, 128px);
+  max-height: 132px;
+  object-fit: contain;
+  margin-bottom: 1.5rem;
+  mix-blend-mode: multiply;
+}
+
+.venue-type {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(0.92rem, 1.3vw, 1.02rem);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: #1a1a1a;
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+}
+
+.venue-description {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-size: clamp(0.92rem, 1.3vw, 1.04rem);
+  color: #333333;
+  line-height: 1.7;
+  margin: 0 0 2rem 0;
+  flex-grow: 1;
+}
+
+.venue-description em {
+  font-style: italic;
+  font-weight: inherit;
+}
+
+.venue-map-btn {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(0.74rem, 1.1vw, 0.84rem);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  min-width: min(210px, 100%);
+  width: auto;
+  max-width: 100%;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 clamp(1rem, 2.5vw, 1.8rem);
+  background: transparent;
+  border: 1px solid #1a1a1a;
+  border-radius: 0;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  box-sizing: border-box;
+  transform: none !important;
+  box-shadow: none !important;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.venue-map-btn:hover {
+  background: #1a1a1a;
+  color: #ffffff;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Schedule of Events Timeline */
+.timeline-section {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 5.5rem;
+  text-align: center;
+}
+
+.timeline-title {
+  font-family: var(--font-script), 'Pinyon Script', cursive;
+  font-size: clamp(1.8rem, 6.2vw, 4.2rem);
+  color: #1a1a1a;
+  margin: 0 0 3.2rem 0;
+  font-weight: 400;
+  -webkit-text-stroke: 0;
+  letter-spacing: normal;
+  white-space: nowrap;
+}
+
+.timeline-grid {
+  width: 100%;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(2.8rem, 4.5vw, 3.8rem) clamp(1.8rem, 4vw, 3.5rem);
+  margin: 0 auto;
+}
+
+.timeline-item {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: none;
+  width: 100%;
+}
+
+.timeline-sketch-icon {
+  width: auto;
+  height: clamp(74px, 8.5vw, 90px);
+  max-height: 94px;
+  max-width: 110px;
+  object-fit: contain;
+  margin-bottom: 1.1rem;
+  mix-blend-mode: multiply;
+}
+
+.timeline-time {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(1.05rem, 1.4vw, 1.18rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #1a1a1a;
+  margin-bottom: 0.35rem;
+}
+
+.timeline-label {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-size: clamp(0.92rem, 1.3vw, 1.05rem);
+  font-weight: 400;
+  color: #3a3a3a;
+}
+
+/* Guest Guidelines: Children & Dress Code */
+.guidelines-section {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.5rem;
+  margin-bottom: 5.5rem;
+  text-align: center;
+}
+
+.guideline-block {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.guideline-heading {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(0.88rem, 1.25vw, 0.98rem);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: #1a1a1a;
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+
+.dress-code-subheading {
+  font-size: clamp(0.82rem, 1.2vw, 0.92rem);
+  letter-spacing: 0.2em;
+  font-weight: 600;
+}
+
+.guideline-text {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-size: clamp(0.92rem, 1.35vw, 1.05rem);
+  color: #3a3a3a;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.dress-code-text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.dress-code-item {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(0.92rem, 1.35vw, 1.05rem);
+  color: #3a3a3a;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.dress-code-item strong {
+  font-style: normal;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.dress-code-item em {
+  font-style: italic;
+}
+
+/* The Registry */
+.registry-section {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 5.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.registry-sketch-icon {
+  width: clamp(82px, 10vw, 96px);
+  height: auto;
+  max-width: 100px;
+  object-fit: contain;
+  margin-bottom: 1.25rem;
+  mix-blend-mode: multiply;
+}
+
+.registry-title {
+  font-family: var(--font-script), 'Pinyon Script', cursive;
+  font-size: clamp(2.0rem, 6.5vw, 4.2rem);
+  color: #b3aba2;
+  margin: 0 0 1rem 0;
+  font-weight: 400;
+  -webkit-text-stroke: 0;
+  letter-spacing: normal;
+  white-space: nowrap;
+}
+
+.registry-text {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-size: clamp(0.92rem, 1.3vw, 1.05rem);
+  color: #4a4a4a;
+  line-height: 1.7;
+  max-width: 640px;
+  margin: 0 auto 2.5rem auto;
+}
+
+.registry-action-btn {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(0.76rem, 1.2vw, 0.88rem);
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  width: 100%;
+  max-width: min(440px, 100%);
+  height: 54px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 clamp(1rem, 3.5vw, 2.5rem);
+  background: transparent;
+  border: 1px solid #1a1a1a;
+  border-radius: 0;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-sizing: border-box;
+  transform: none !important;
+  box-shadow: none !important;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.registry-action-btn:hover {
+  background: #1a1a1a;
+  color: #ffffff;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Wedding FAQs */
+.faqs-clean-section {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 5.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.faqs-clean-title {
+  font-family: var(--font-script), 'Pinyon Script', cursive;
+  font-size: clamp(2.0rem, 6.5vw, 4.2rem);
+  color: #1a1a1a;
+  margin: 0 0 2.5rem 0;
+  font-weight: 400;
+  -webkit-text-stroke: 0;
+  letter-spacing: normal;
+  white-space: nowrap;
+}
+
+.faq-clean-item {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto 2.5rem auto;
+}
+
+.faq-clean-item:last-child {
+  margin-bottom: 0;
+}
+
+.faq-clean-question {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(0.82rem, 1.25vw, 0.92rem);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: #1a1a1a;
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+}
+
+.faq-clean-answer {
+  font-family: var(--font-serif), Georgia, serif;
+  font-style: italic;
+  font-size: clamp(0.92rem, 1.35vw, 1.02rem);
+  color: #4a4a4a;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Full-Bleed Callas Photographic Footer Banner (Matched to uploaded image with moody floral filter) */
+.details-callas-banner {
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+  height: clamp(520px, 58vw, 680px);
+  min-height: 520px;
+  background-image: linear-gradient(rgba(10, 8, 6, 0.46), rgba(10, 8, 6, 0.46)), url('assets/images/bg-lilies.webp');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 20px 40px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.details-callas-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.08) 0%, rgba(5, 4, 3, 0.38) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.details-callas-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+}
+
+.details-callas-emblem {
+  width: clamp(130px, 16vw, 175px);
+  height: auto;
+  filter: brightness(0) invert(1) drop-shadow(0 2px 10px rgba(0, 0, 0, 0.4));
+  pointer-events: none;
+  margin-bottom: 0.2rem;
+}
+
+.details-callas-quote {
+  font-family: var(--font-script), 'Pinyon Script', cursive;
+  font-size: clamp(1.05rem, 4.5vw, 3.2rem);
+  font-weight: 400;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.2;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5);
+  -webkit-text-stroke: 0;
+  white-space: nowrap;
+}
+
+.details-callas-couple {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.details-callas-with-love {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(0.74rem, 1.1vw, 0.84rem);
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  color: #ffffff;
+  text-transform: uppercase;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+  white-space: nowrap;
+}
+
+.details-callas-names {
+  font-family: var(--font-script), 'Pinyon Script', cursive;
+  font-size: clamp(2.0rem, 4.8vw, 3.3rem);
+  font-weight: 400;
+  color: #ffffff;
+  line-height: 1.1;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5);
+  -webkit-text-stroke: 0;
+  white-space: nowrap;
+}
+
+.details-callas-back-btn {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: clamp(0.76rem, 1.2vw, 0.85rem);
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  color: #ffffff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+  transition: opacity var(--transition-fast);
+  margin-top: 0.8rem;
+}
+
+.details-callas-back-btn:hover {
+  opacity: 0.85;
+}
+
+/* ==========================================
+   Source: css/rsvp.css
+   ========================================== */
+
+/* ==========================================================================
+   RSVP Suite: Screen 4 (Prompt Card) & Screen 5 (Interactive Form)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Screen 4: RSVP Prompt Card (Frames 00:15 - 00:20)
+   -------------------------------------------------------------------------- */
+
+.rsvp-prompt-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: var(--color-bg);
+}
+
+.rsvp-prompt-card {
+  padding: 5rem 1.5rem 3rem 1.5rem;
+  max-width: 680px;
+  width: 100%;
+  margin: auto auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.rsvp-prompt-title {
+  font-family: var(--font-script);
+  font-size: clamp(2.6rem, 8vw, 5.2rem);
+  color: var(--color-text-primary);
+  margin-bottom: 0.75rem;
+  line-height: 1.1;
+  font-weight: 500;
+  -webkit-text-stroke: 0.4px var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.rsvp-prompt-subtitle {
+  font-family: var(--font-script);
+  font-size: clamp(1.05rem, 4.0vw, 3.0rem);
+  color: var(--color-text-primary);
+  margin-bottom: 1.75rem;
+  line-height: 1.2;
+  font-weight: 500;
+  -webkit-text-stroke: 0.35px var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.rsvp-prompt-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: #111111;
+  line-height: 1.85;
+  font-weight: 500;
+  max-width: 480px;
+  margin-bottom: 2.25rem;
+}
+
+.rsvp-prompt-deadline {
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-text-primary);
+  margin-bottom: 2.5rem;
+  text-transform: uppercase;
+}
+
+.rsvp-prompt-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+
+/* --------------------------------------------------------------------------
+   Screen 5: Interactive RSVP Form (Frames 00:21 - 00:36)
+   -------------------------------------------------------------------------- */
+
+.rsvp-form-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2.5rem 0 0 0;
+  background-color: var(--color-bg);
+}
+
+.rsvp-form-container {
+  padding: 1.5rem 1.5rem 4rem 1.5rem;
+  max-width: 580px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.rsvp-form-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rsvp-form-emblem {
+  width: 180px;
+  height: auto;
+  margin-bottom: 1.25rem;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.06));
+}
+
+.rsvp-form-title {
+  font-family: var(--font-script);
+  font-size: clamp(1.35rem, 5.0vw, 3.4rem);
+  color: var(--color-text-primary);
+  margin-bottom: 0.75rem;
+  line-height: 1.15;
+  font-weight: 500;
+  -webkit-text-stroke: 0.35px var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.rsvp-form-subtext {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: #111111;
+  line-height: 1.75;
+  font-weight: 500;
+  max-width: 480px;
+  margin-bottom: 1.25rem;
+}
+
+.rsvp-form-deadline-badge {
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+}
+
+/* Form Groups & Inputs */
+.form-group {
+  margin-bottom: 2rem;
+}
+
+.form-label {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.08rem;
+  color: var(--color-text-primary);
+  margin-bottom: 0.75rem;
+}
+
+.form-input {
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid var(--color-input-border);
+  border-radius: 3px;
+  padding: 0.95rem 1.2rem;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--color-text-primary);
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.form-input:focus {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 3px rgba(179, 154, 123, 0.2);
+}
+
+.form-input::placeholder {
+  color: var(--color-text-subtle);
+  font-style: italic;
+}
+
+/* Choice Cards (Tile Selection matching Video 00:23 / 00:30) */
+.radio-cards-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.radio-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 1.1rem 1.4rem;
+  background-color: #ebe5dc;
+  border: 1.5px solid transparent;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.radio-card:hover {
+  background-color: #e4ddd3;
+}
+
+.radio-card input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.radio-indicator {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-text-secondary);
+  margin-right: 1.1rem;
+  flex-shrink: 0;
+  position: relative;
+  transition: border-color var(--transition-fast);
+}
+
+.radio-card input[type="radio"]:checked~.radio-indicator {
+  border-color: var(--color-text-primary);
+}
+
+.radio-card input[type="radio"]:checked~.radio-indicator::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--color-text-primary);
+}
+
+.radio-label {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--color-text-primary);
+}
+
+.radio-card.selected {
+  background-color: #ded7cb;
+  border-color: rgba(179, 154, 123, 0.7);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Dynamic Guest Name Field */
+.guest-name-field {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--transition-normal), opacity var(--transition-normal);
+  opacity: 0;
+}
+
+.guest-name-field.visible {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.guest-name-field-inner {
+  overflow: hidden;
+  padding-top: 0.75rem;
+}
+
+/* Solid Black Submit RSVP Button */
+.rsvp-submit-btn {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 1.15rem;
+  font-size: 0.84rem;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  background-color: #111111;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.rsvp-submit-btn:hover {
+  background-color: #242424;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+.rsvp-submit-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.rsvp-form-back-wrap {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* --------------------------------------------------------------------------
+   Confirmation / Thank You State
+   -------------------------------------------------------------------------- */
+
+.rsvp-confirmation-card {
+  display: none;
+  text-align: center;
+  padding: 2.5rem 1rem;
+  animation: screenFadeIn 0.6s ease forwards;
+}
+
+.rsvp-confirmation-card.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.confirmation-check-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 1.5px solid var(--color-gold);
+  color: var(--color-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  background-color: var(--color-surface-warm);
+}
+
+.confirmation-title {
+  font-family: var(--font-script);
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  color: var(--color-text-primary);
+  margin-bottom: 1rem;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.confirmation-message {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-body-serif);
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+  max-width: 440px;
+  margin-bottom: 2rem;
+}
+
+.confirmation-details-summary {
+  background: var(--color-surface-subtle);
+  border: 1px solid var(--color-border-warm);
+  border-radius: 4px;
+  padding: 1.4rem 1.8rem;
+  margin-bottom: 2rem;
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-text-primary);
+  text-align: left;
+  width: 100%;
+  max-width: 420px;
+}
+
+/* First & Last Name Grid */
+.name-fields-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+  width: 100%;
+}
+
+.name-field-col {
+  width: 100%;
+}
+
+.required-star {
+  color: #b33939;
+  font-weight: 700;
+}
+
+.field-hint {
+  font-family: var(--font-serif);
+  font-size: 0.82rem;
+  font-style: italic;
+  color: #66605a;
+  margin-top: 0.35rem;
+}
+
+
+.sub-form-group {
+  margin-bottom: 1.25rem;
+}
+
+.attendees-container {
+  margin-top: 0.85rem;
+}
+
+.attendees-list-title {
+  font-weight: 600;
+  margin-bottom: 0.65rem;
+  color: #1a1a1a;
+  font-size: 1.02rem;
+}
+
+.attendee-inputs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.attendee-input-group {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--color-border-warm);
+  border-radius: 4px;
+  padding: 0.85rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  transition: all var(--transition-fast);
+}
+
+.attendee-input-group:focus-within {
+  background: #ffffff;
+  border-color: var(--color-gold);
+  box-shadow: 0 3px 12px rgba(158, 127, 91, 0.12);
+}
+
+.attendee-group-label {
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #2b2725;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.attendee-number-badge {
+  background: #111111;
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  padding: 0.12rem 0.45rem;
+  border-radius: 10px;
+  letter-spacing: 0.05em;
+}
+
+/* Manage Guest List Link */
+
+.rsvp-manage-link {
+  background: none;
+  border: none;
+  font-family: var(--font-serif);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #3a3530;
+  text-decoration: underline;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  padding: 0.4rem 0.8rem;
+  transition: color var(--transition-fast);
+}
+
+.rsvp-manage-link:hover {
+  color: #000000;
+}
+
+/* Confirmation Actions */
+.confirmation-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 420px;
+}
+
+.btn-dark {
+  background-color: #111111 !important;
+  color: #ffffff !important;
+  border: 1px solid #111111 !important;
+}
+
+.btn-dark:hover {
+  background-color: #2b2b2b !important;
+}
+
+/* ==========================================
+   Source: css/responsive.css
+   ========================================== */
+
+/* ==========================================================================
+   Responsive Breakpoints & Viewport Optimizations
+   Fully Responsive for All Screen Sizes (320px, 360px, 375px, 480px, 768px, 1024px, 1440px+)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Tablet & Smaller Desktops (<= 768px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  :root {
+    --envelope-width: min(440px, 92vw);
+  }
+
+  .envelope-screen {
+    padding: 2rem 1rem;
+    overflow-x: hidden;
+  }
+
+  .envelope-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .opened-envelope-assembly {
+    width: min(480px, 92vw);
+    aspect-ratio: 514 / 653;
+    height: auto;
+  }
+
+  .env-card-slot {
+    top: -130px;
+    height: calc(100% + 130px);
+  }
+
+  .env-layer-card {
+    bottom: 60px;
+    width: 84%;
+    max-width: 395px;
+    aspect-ratio: 508 / 700;
+    height: auto;
+  }
+
+  .card-typography {
+    top: 17.5%;
+    bottom: 27.5%;
+    left: 23.5%;
+    right: 23.5%;
+  }
+
+  .card-names {
+    font-size: clamp(1.85rem, 3.6vw, 2.3rem);
+    -webkit-text-stroke: 0.35px #000000;
+    white-space: nowrap;
+  }
+
+  .countdown-grid {
+    flex-wrap: nowrap !important;
+  }
+
+  .countdown-item {
+    min-width: 0 !important;
+    flex: 1 1 auto;
+  }
+
+  .countdown-digits {
+    font-size: 2.1rem;
+    white-space: nowrap;
+  }
+
+  .gateway-details-card {
+    max-width: min(380px, 100%);
+  }
+
+  .venues-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(1.2rem, 3vw, 2.5rem);
+  }
+
+  .timeline-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem 1.25rem;
+  }
+
+  .rsvp-form-container,
+  .rsvp-prompt-card {
+    padding: 2.5rem 1.25rem;
+  }
+
+  .rsvp-champagne-backdrop {
+    min-height: 520px;
+    padding: 3rem 1.25rem;
+  }
+
+  .rsvp-envelope-card {
+    width: min(360px, 86vw);
+    transform: rotate(10deg);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Phablets & Mobile Landscape / Medium Screens (<= 600px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 600px) {
+  .venues-grid {
+    grid-template-columns: 1fr;
+    gap: 3.2rem;
+    max-width: 420px;
+    margin: 0 auto 4.5rem auto;
+  }
+
+  .venue-card {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .venue-map-btn {
+    min-width: min(220px, 100%);
+    width: auto;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Mobile Screens (<= 480px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+  :root {
+    --envelope-width: min(420px, 100%);
+  }
+
+  /* Screen 1: Envelope Gate */
+  .envelope-screen {
+    padding: 2rem 1rem;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .envelope-subtitle {
+    font-size: clamp(0.72rem, 2.2vw, 0.88rem);
+    letter-spacing: 0.22em;
+    white-space: nowrap;
+  }
+
+  .envelope-title {
+    font-size: clamp(2.1rem, 7.8vw, 2.85rem);
+    white-space: nowrap;
+  }
+
+  .envelope-stage {
+    width: min(420px, 100%);
+    max-width: 100%;
+  }
+
+  .wax-seal-target {
+    width: 60px;
+    height: 72px;
+  }
+
+  .wax-seal-monogram {
+    font-size: 1.45rem;
+  }
+
+  /* Screen 2: Main Invitation */
+  .opened-envelope-assembly {
+    width: min(420px, 92vw);
+    aspect-ratio: 514 / 653;
+    height: auto;
+  }
+
+  .env-card-slot {
+    top: -20%;
+    height: calc(100% + 20%);
+  }
+
+  .env-layer-card {
+    width: 84%;
+    max-width: 370px;
+    aspect-ratio: 508 / 700;
+    height: auto;
+    bottom: 55px;
+    padding: 0;
+  }
+
+  .card-typography {
+    top: 17.5%;
+    bottom: 27.5%;
+    left: 23%;
+    right: 23%;
+  }
+
+  .card-families {
+    font-size: 0.45rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    color: #111111;
+  }
+
+  .card-names {
+    font-size: clamp(1.7rem, 6.2vw, 2.05rem);
+    font-weight: 500;
+    color: #000000;
+    -webkit-text-stroke: 0.35px #000000;
+    white-space: nowrap;
+  }
+
+  .card-invite {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    line-height: 1.4;
+    color: #111111;
+    margin: 0.2rem 0;
+  }
+
+  .card-date {
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: #000000;
+  }
+
+  .card-venue {
+    font-size: 0.70rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    color: #111111;
+  }
+
+  .env-front-monogram {
+    font-size: 2.3rem;
+    bottom: 17%;
+  }
+
+  .story-section {
+    padding: 3.5rem 1rem 0rem 1rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .story-title {
+    font-size: clamp(1.35rem, 5.6vw, 2.1rem);
+    white-space: nowrap;
+  }
+
+  .countdown-section {
+    padding: 1.5rem 1rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .countdown-heading {
+    font-size: clamp(1.35rem, 5.5vw, 2.05rem);
+    white-space: nowrap;
+  }
+
+  .countdown-grid {
+    gap: clamp(0.18rem, 1.2vw, 0.42rem);
+    flex-wrap: nowrap !important;
+    width: 100%;
+    max-width: min(345px, 100%);
+    margin: 0 auto;
+  }
+
+  .countdown-item {
+    min-width: 0 !important;
+    flex: 1 1 auto;
+  }
+
+  .countdown-digits {
+    font-size: clamp(1.25rem, 4.6vw, 1.7rem);
+    white-space: nowrap;
+  }
+
+  .countdown-label {
+    font-size: clamp(0.48rem, 1.25vw, 0.62rem);
+    letter-spacing: 0.12em;
+    margin-top: 0.35rem;
+    white-space: nowrap;
+  }
+
+  .countdown-divider {
+    font-size: clamp(1.0rem, 3.2vw, 1.4rem);
+    margin-bottom: 0.65rem;
+    flex-shrink: 0;
+  }
+
+  .gateway-details-section {
+    padding: 3.5rem 1rem 4rem 1rem;
+  }
+
+  .gateway-details-card {
+    max-width: min(340px, 100%);
+    width: 100%;
+  }
+
+  .petal-badge-title {
+    font-size: clamp(1.95rem, 5.8vw, 2.35rem);
+    white-space: nowrap;
+  }
+
+  .petal-btn {
+    padding: 0;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+  }
+
+  .monogram-footer {
+    padding: 3.5rem 1rem 3rem 1rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .footer-quote {
+    font-size: clamp(1.02rem, 4.2vw, 1.45rem);
+    white-space: nowrap;
+  }
+
+  .footer-names {
+    font-size: clamp(1.85rem, 5.8vw, 2.6rem);
+    white-space: nowrap;
+  }
+
+  /* Screen 3: Details Screen */
+  .details-screen {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .details-content-column {
+    padding: 2.2rem 1rem 0 1rem;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .details-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .details-main-title {
+    font-size: clamp(2.2rem, 6.8vw, 3.2rem);
+    white-space: nowrap;
+  }
+
+  .details-intro-text {
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+
+  .venues-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    margin: 0 auto 4rem auto;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .venue-card {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .venue-sketch-icon {
+    height: 90px;
+    margin-bottom: 1.1rem;
+  }
+
+  .venue-type {
+    font-size: 0.92rem;
+    margin-bottom: 0.75rem;
+    white-space: nowrap;
+  }
+
+  .venue-description {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    margin-bottom: 1.5rem;
+  }
+
+  .venue-map-btn {
+    min-width: min(210px, 100%);
+    width: auto;
+    max-width: 100%;
+    height: 46px;
+    font-size: 0.74rem;
+    padding: 0 1.4rem;
+  }
+
+  .timeline-section {
+    margin-bottom: 4.2rem;
+    width: 100%;
+  }
+
+  .timeline-title {
+    font-size: clamp(1.7rem, 6.0vw, 2.5rem);
+    margin-bottom: 2.2rem;
+    white-space: nowrap;
+  }
+
+  .timeline-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.8rem 0.8rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .timeline-sketch-icon {
+    height: clamp(62px, 8vw, 76px);
+    margin-bottom: 0.8rem;
+  }
+
+  .timeline-time {
+    font-size: 0.98rem;
+  }
+
+  .timeline-label {
+    font-size: 0.86rem;
+  }
+
+  .guidelines-section {
+    gap: 2.8rem;
+    margin-bottom: 4.2rem;
+    width: 100%;
+  }
+
+  .guideline-heading {
+    font-size: 0.88rem;
+    white-space: normal !important;
+  }
+
+  .guideline-text,
+  .dress-code-item {
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+
+  .registry-section {
+    margin-bottom: 4.2rem;
+    width: 100%;
+  }
+
+  .registry-title {
+    font-size: clamp(1.85rem, 6.2vw, 2.7rem);
+    white-space: nowrap;
+  }
+
+  .registry-text {
+    font-size: 0.92rem;
+    margin-bottom: 2rem;
+  }
+
+  .registry-action-btn {
+    width: 100%;
+    max-width: min(440px, 100%);
+    height: 52px;
+    font-size: 0.76rem;
+    padding: 0 1.2rem;
+  }
+
+  .faqs-clean-section {
+    margin-bottom: 4.2rem;
+    width: 100%;
+  }
+
+  .faqs-clean-title {
+    font-size: clamp(1.85rem, 6.2vw, 2.7rem);
+    margin-bottom: 2rem;
+    white-space: nowrap;
+  }
+
+  .faq-clean-item {
+    margin-bottom: 2rem;
+    width: 100%;
+  }
+
+  .faq-clean-question {
+    font-size: clamp(0.78rem, 1.2vw, 0.86rem);
+    white-space: normal !important;
+    line-height: 1.5;
+  }
+
+  .faq-clean-answer {
+    font-size: 0.92rem;
+    line-height: 1.65;
+  }
+
+  .details-intro-text br,
+  .venue-description br,
+  .guideline-text br,
+  .dress-code-item br,
+  .registry-text br,
+  .faq-clean-answer br {
+    display: none;
+  }
+
+  .details-callas-banner {
+    min-height: 460px;
+    height: clamp(460px, 55vw, 560px);
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .details-callas-content {
+    padding: 2rem 1rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .details-callas-quote {
+    font-size: clamp(1.05rem, 4.4vw, 1.65rem);
+    white-space: nowrap;
+  }
+
+  .details-callas-names {
+    font-size: clamp(1.85rem, 4.8vw, 2.6rem);
+    white-space: nowrap;
+  }
+
+  /* Screen 4 & 5: RSVP Suite */
+  .rsvp-champagne-backdrop {
+    min-height: 480px;
+    padding: 2.2rem 1rem;
+    width: 100%;
+  }
+
+  .rsvp-envelope-card {
+    width: min(315px, 82vw);
+    transform: rotate(10deg);
+  }
+
+  .rsvp-pocket-content {
+    bottom: 9.5%;
+    gap: 0.35rem;
+  }
+
+  .rsvp-pocket-script {
+    font-size: 2.15rem;
+  }
+
+  .rsvp-pocket-btn {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    padding: 0.42rem 1.3rem;
+  }
+
+  .rsvp-prompt-card {
+    padding: 3.5rem 1rem 2.5rem 1rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .rsvp-prompt-title {
+    font-size: clamp(2.5rem, 7.5vw, 3.4rem);
+    white-space: nowrap;
+  }
+
+  .rsvp-prompt-subtitle {
+    font-size: clamp(1.02rem, 4.0vw, 1.65rem);
+    white-space: nowrap;
+  }
+
+  .rsvp-prompt-text {
+    font-size: 1.02rem;
+    line-height: 1.7;
+    margin-bottom: 1.8rem;
+  }
+
+  .rsvp-form-container {
+    padding: 1.5rem 1rem 3rem 1rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .rsvp-form-title {
+    font-size: clamp(1.25rem, 4.8vw, 1.85rem);
+    white-space: nowrap;
+  }
+
+  .btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.72rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Compact Mobile Screens (<= 360px - e.g. Galaxy Fold, iPhone 5/SE/Mini)
+   -------------------------------------------------------------------------- */
+@media (max-width: 393px) {
+  :root {
+    --envelope-width: 100%;
+  }
+
+  .card-families {
+    font-size: 0.40rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    color: #111111;
+  }
+
+  .envelope-screen {
+    padding: 1.5rem 0.75rem;
+  }
+
+  .envelope-title {
+    font-size: 1.95rem;
+  }
+
+  .envelope-subtitle {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+  }
+
+  .card-names {
+    font-size: 1.5rem;
+  }
+
+  .card-venue {
+    font-size: 0.55rem;
+  }
+
+  .card-date {
+    font-size: 0.80rem;
+  }
+
+  .card-invite {
+    font-size: 0.65rem;
+  }
+
+  .story-title {
+    font-size: 1.28rem;
+  }
+
+  .countdown-heading {
+    font-size: 1.28rem;
+  }
+
+  .countdown-digits {
+    font-size: 1.15rem;
+  }
+
+  .countdown-label {
+    font-size: 0.45rem;
+    letter-spacing: 0.08em;
+  }
+
+  .countdown-divider {
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .countdown-grid {
+    gap: 0.15rem;
+  }
+
+  .footer-quote {
+    font-size: 0.98rem;
+  }
+
+  .footer-names {
+    font-size: 1.75rem;
+  }
+
+  .details-content-column {
+    padding: 1.8rem 0.75rem 0 0.75rem;
+  }
+
+  .details-main-title {
+    font-size: 2.05rem;
+  }
+
+  .details-intro-text {
+    font-size: 0.88rem;
+  }
+
+  .venue-type {
+    font-size: 0.86rem;
+  }
+
+  .venue-description {
+    font-size: 0.86rem;
+  }
+
+  .timeline-title {
+    font-size: 1.55rem;
+  }
+
+  .timeline-time {
+    font-size: 0.92rem;
+  }
+
+  .timeline-label {
+    font-size: 0.82rem;
+  }
+
+  .registry-title {
+    font-size: 1.75rem;
+  }
+
+  .registry-action-btn {
+    height: 48px;
+    font-size: 0.72rem;
+    padding: 0 0.8rem;
+  }
+
+  .faqs-clean-title {
+    font-size: 1.75rem;
+  }
+
+  .faq-clean-question {
+    font-size: 0.75rem;
+  }
+
+  .faq-clean-answer {
+    font-size: 0.86rem;
+  }
+
+  .details-callas-quote {
+    font-size: 0.98rem;
+  }
+
+  .details-callas-names {
+    font-size: 1.75rem;
+  }
+
+  .rsvp-envelope-card {
+    width: min(270px, 80vw);
+    transform: rotate(10deg);
+  }
+
+  .rsvp-prompt-title {
+    font-size: 2.35rem;
+  }
+
+  .rsvp-prompt-subtitle {
+    font-size: 0.98rem;
+  }
+
+  .rsvp-form-title {
+    font-size: 1.18rem;
+  }
+
+  .radio-card {
+    padding: 0.9rem 1rem;
+  }
+
+  .radio-label {
+    font-size: 0.92rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Accessibility: Reduced Motion
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

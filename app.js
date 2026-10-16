@@ -107,29 +107,38 @@ function parseCsvLine(line) {
   return result;
 }
 
+let lastRsvpError = null;
+
 /**
- * Load records directly from Book1.csv on disk via backend API or static CSV file.
+ * Load records directly from Book1.csv on disk via PHP AJAX endpoint or static CSV file.
  */
 async function loadRecordsFromCsv() {
   const endpoints = [
-    '/api/rsvps',
-    'http://127.0.0.1:3000/api/rsvps',
+    'rsvp.php',
+    'http://127.0.0.1:8000/rsvp.php',
+    'http://localhost:8000/rsvp.php',
     `Book1.csv?t=${Date.now()}`
   ];
 
   for (const ep of endpoints) {
     try {
-      const res = await fetch(ep);
+      const res = await fetch(ep, {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      });
       if (res.ok) {
+        const text = await res.text();
+        if (text.trim().startsWith('<?php')) {
+          // Uninterpreted PHP script from static server (e.g. VS Code Live Server). Skip to real PHP endpoint.
+          continue;
+        }
         if (ep.endsWith('.csv') || ep.includes('Book1.csv')) {
-          const text = await res.text();
           const list = parseCsvText(text);
           if (list && list.length > 0) {
             records = list;
             return records;
           }
         } else {
-          const json = await res.json();
+          const json = JSON.parse(text);
           if (json && Array.isArray(json.records) && json.records.length > 0) {
             records = json.records;
             return records;
@@ -142,6 +151,49 @@ async function loadRecordsFromCsv() {
   }
 
   return records;
+}
+
+/**
+ * Submit RSVP data via PHP AJAX call directly to rsvp.php to save in Book1.csv.
+ */
+async function submitRsvpToPhp(payload) {
+  lastRsvpError = null;
+  const endpoints = [
+    'rsvp.php',
+    'http://127.0.0.1:8000/rsvp.php',
+    'http://localhost:8000/rsvp.php'
+  ];
+
+  for (const ep of endpoints) {
+    try {
+      const res = await fetch(ep, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify(payload)
+      });
+      const text = await res.text();
+      if (text.trim().startsWith('<?php')) {
+        // VS Code Live Server returned raw PHP text instead of executing it. Try real PHP server.
+        continue;
+      }
+      const json = JSON.parse(text);
+      if (res.ok && json && json.success) {
+        if (Array.isArray(json.records)) {
+          records = json.records;
+        }
+        return json.record || null;
+      } else if (json && json.message) {
+        lastRsvpError = json.message;
+      }
+    } catch {
+      // Try next endpoint
+    }
+  }
+
+  return null;
 }
 
 function getStoredRecords() {
@@ -297,6 +349,8 @@ const SCREENS = {
   envelope: 'screen-envelope',
   '1': 'screen-envelope',
   invitation: 'screen-main',
+  main: 'screen-main',
+  hero: 'screen-main',
   '2': 'screen-main',
   details: 'screen-details',
   '3': 'screen-details',
@@ -354,6 +408,31 @@ function initNavigation() {
       e.preventDefault();
       const targetScreen = targetEl.getAttribute('data-nav-target');
       showScreen(targetScreen);
+      return;
+    }
+
+    // Smoothly scroll down to "The next chapter begins" ONLY when clicking directly
+    // on the card (.env-layer-card, #invitationCard) or envelope back/layers (.env-layer, .env-layer-back)
+    const cardOrEnvelope = e.target.closest('.env-layer-card, .env-layer-back, .env-layer, #invitationCard');
+    if (cardOrEnvelope && document.getElementById('screen-main')?.classList.contains('active')) {
+      const storyEl = document.getElementById('story-section') || document.querySelector('.story-section');
+      if (storyEl) {
+        storyEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        return;
+      }
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      const activeEl = document.activeElement;
+      if (activeEl && (activeEl.id === 'invitationCard' || activeEl.closest('.env-layer-card, .env-layer-back, .env-layer'))) {
+        e.preventDefault();
+        const storyEl = document.getElementById('story-section') || document.querySelector('.story-section');
+        if (storyEl) {
+          storyEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
     }
   });
 
@@ -841,8 +920,10 @@ function initRSVP() {
   }
 
   // 6. Handle Form Submission (Create or Update directly in Book1.csv)
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  async function handleRsvpSubmit(e) {
+    if (e && typeof e.preventDefault === 'function') {
+      e.preventDefault();
+    }
 
     let guestName = guestNameInput ? guestNameInput.value.trim() : '';
     if (!guestName && firstNameInput && lastNameInput) {
@@ -901,30 +982,31 @@ function initRSVP() {
     submitBtn.textContent = editingSrNo ? 'Updating RSVP...' : 'Submitting RSVP...';
 
     try {
-      let savedRecord = null;
+      const payload = {
+        editingSrNo,
+        guestName,
+        attendance,
+        bringingGuest,
+        attendees: attendeeNames
+      };
 
-      if (editingSrNo) {
-        savedRecord = await updateGuest(editingSrNo, {
-          guestName,
-          attendance,
-          bringingGuest,
-          attendees: attendeeNames
-        });
-      }
+      // 1. Submit RSVP data via PHP AJAX call directly to rsvp.php
+      let savedRecord = await submitRsvpToPhp(payload);
 
       if (!savedRecord) {
-        savedRecord = await createGuest({
-          guestName,
-          attendance,
-          bringingGuest,
-          attendees: attendeeNames
-        });
+        const errorMsg = lastRsvpError || 'Could not save to Book1.csv. Please ensure the PHP web server is running on http://127.0.0.1:8000.';
+        alert(errorMsg);
+        submitBtn.disabled = false;
+        submitBtn.textContent = editingSrNo ? 'Update RSVP' : 'Submit RSVP';
+        return;
       }
 
       lastSubmittedSrNo = savedRecord.srNo;
 
       form.style.display = 'none';
-      if (confirmationCard) confirmationCard.classList.add('active');
+      if (confirmationCard) {
+        confirmationCard.classList.add('active');
+      }
 
       if (confirmationSummary) {
         const statusText = savedRecord.attendance === 'attending'
@@ -960,7 +1042,12 @@ function initRSVP() {
         window.scrollTo({ top: confirmationCard.offsetTop - 40, behavior: 'smooth' });
       }
     }
-  });
+  }
+
+  if (submitBtn) {
+    submitBtn.addEventListener('click', handleRsvpSubmit);
+  }
+  form.addEventListener('submit', handleRsvpSubmit);
 
   // 7. Reset Form / Submit Another Response
   if (resetBtn) {
