@@ -5,9 +5,10 @@
       "includeFiles": "{index.php,rsvp.php,style.css,app.js,Wedding-List-Complete.xlsx}"
     }
   },
-  "rewrites": [
-    { "source": "/rsvp.php", "destination": "/api/rsvp.php" },
-    { "source": "/", "destination": "/api/index.php" },
-    { "source": "/index.php", "destination": "/api/index.php" }
+  "routes": [
+    { "src": "/", "dest": "/api/index.php" },
+    { "src": "/index\.php", "dest": "/api/index.php" },
+    { "src": "/rsvp\.php", "dest": "/api/rsvp.php" },
+    { "src": "/(.*\.(xlsx|lock|md))", "status": 404 }
   ]
 }
