@@ -7,7 +7,7 @@
   "rewrites": [
     {
       "source": "/rsvp.php",
-      "destination": "/api/rsvp.php"
+      "destination": "rsvp.php"
     },
     {
       "source": "/(.*)",
