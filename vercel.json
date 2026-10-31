@@ -6,10 +6,6 @@
   },
   "rewrites": [
     {
-      "source": "/rsvp.php",
-      "destination": "rsvp.php"
-    },
-    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
